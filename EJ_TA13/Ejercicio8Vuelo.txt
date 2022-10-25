@@ -1,0 +1,20 @@
+CREATE DATABASE ejercicio8Vuelo;
+use ejercicio8Vuelo;
+CREATE table Cliente (id_cliente INT PRIMARY KEY);
+
+Create table Avion(id_codigo_avion INT PRIMARY KEY, num_plazas INT);
+
+CREATE table Vuelo(id_codigo_unico INT PRIMARY KEY, fecha_salida date, hora_llegada char(20), fecha_llegada date, hora_salida char(20), aero_llegada char(30), aero_salida char(30), id_codigo_avion INT, foreign key(id_codigo_avion) REFERENCES Avion(id_codigo_avion) ON DELETE CASCADE ON UPDATE CASCADE);
+
+Create table Reserva(id_asiento INT PRIMARY KEY, fila INT, columna INT, planta INT, tarjeta_credito char(25));
+
+CREATE table Reserva_vuelo(id_cliente INT, id_vuelo_codigo_unico INT, id_asiento INT, PRIMARY KEY(id_cliente,id_vuelo_codigo_unico,id_asiento), 
+							FOREIGN KEY(id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE ON UPDATE CASCADE,
+                            FOREIGN KEY(id_vuelo_codigo_unico) REFERENCES Vuelo(id_codigo_unico) ON DELETE CASCADE ON UPDATE CASCADE,
+                            FOREIGN KEY(id_asiento) REFERENCES Reserva(id_asiento) ON DELETE CASCADE ON UPDATE CASCADE);
+                            
+CREATE table Tarjeta_Embarque(id_tarjeta INT PRIMARY KEY, num_reserva INT, columna INT);
+
+CREATE TABLE Obtiene(id_tarjeta INT, id_asiento INT, PRIMARY KEY(id_tarjeta,id_asiento),
+					FOREIGN KEY(id_tarjeta) REFERENCES Tarjeta_Embarque(id_tarjeta) ON DELETE cascade ON UPDATE CASCADE,
+                    FOREIGN KEY(id_asiento) REFERENCES Reserva(id_asiento) ON DELETE CASCADE ON UPDATE CASCADE);

@@ -1,0 +1,11 @@
+CREATE DATABASE ejercicio4Paises;
+use ejercicio4Paises;
+CREATE table Pais (Nombre char(20) PRIMARY KEY);
+CREATE table Bando (nombre_bando char(20) PRIMARY KEY, ganadores char(255));
+CREATE table Periodo(id_periodo INT PRIMARY KEY, año_indepe date, fin_año_indepe date, id_pais_nombre char(20) NOT NULL, foreign key(id_pais_nombre) REFERENCES Pais(nombre) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE table Pertenece(Id_nombre char(20) NOT NULL, id_nombre_bando char(20) NOT NULL, PRIMARY KEY(id_nombre_bando,Id_nombre), foreign key(Id_nombre) REFERENCES Pais(nombre) ON DELETE CASCADE ON UPDATE CASCADE,
+					  fecha_union date, FOREIGN KEY(id_nombre_bando) REFERENCES Bando(nombre_bando) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE Guerra(id_guerra INT PRIMARY KEY, año_empieza date, año_acaba date, nombre char(50));
+Create table Participo(id_guerra INT, nombre_bando char(20), PRIMARY KEY(id_guerra,nombre_bando), foreign key(id_guerra) REFERENCES Guerra(id_guerra) ON DELETE CASCADE ON UPDATE CASCADE,
+						FOREIGN KEY(nombre_bando) REFERENCES Bando(nombre_bando) ON DELETE CASCADE ON UPDATE CASCADE);
+                        

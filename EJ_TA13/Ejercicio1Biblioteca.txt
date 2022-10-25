@@ -1,0 +1,10 @@
+CREATE DATABASE ejercicio1Biblioteca;
+use ejercicio1Biblioteca;
+CREATE table Biblioteca (ID_Biblioteca INT PRIMARY KEY);
+CREATE table Persona(id_socio INT PRIMARY KEY, dni char(20), direccion char(50), telefono char(16), nombre char(12), apellidos char(25));
+CREATE table Prestamo(Id_prestamo INT PRIMARY KEY, id_codigo_socio INT, foreign key(id_codigo_socio) REFERENCES Persona(id_socio) ON DELETE CASCADE ON UPDATE CASCADE,
+					  fecha_realiza date, fecha_esperada date, fecha_devolucion date);
+CREATE table Libros (ID_Libro INT primary key, ID_Biblioteca INT, 
+					 FOREIGN KEY (ID_Biblioteca) REFERENCES Biblioteca(ID_Biblioteca) ON DELETE CASCADE ON UPDATE CASCADE,
+					 ID_Prestamo INT, FOREIGN KEY (ID_Prestamo) REFERENCES Prestamo(Id_prestamo) ON DELETE CASCADE ON UPDATE CASCADE,
+                     titulo varchar(20), editorial varchar(20), año date, autores varchar(100), año_edicion date, ISBN varchar(18), deteriorado tinyint); 

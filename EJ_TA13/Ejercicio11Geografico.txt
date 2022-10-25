@@ -1,0 +1,22 @@
+CREATE DATABASE ejercicio11Geografico;
+use ejercicio11Geografico;
+CREATE table Accidente_Geografico (id_accidente INT PRIMARY KEY, nombre char(20), pos_horizontal INT, pos_vertical INT);
+
+Create table Rios(id_accidente INT PRIMARY KEY, longitud INT, FOREIGN KEY(id_accidente) REFERENCES Accidente_Geografico(id_accidente) ON DELETE CASCADE ON UPDATE CASCADE);
+
+Create table Lagos(id_accidente INT PRIMARY KEY, extension INT, FOREIGN KEY(id_accidente) REFERENCES Accidente_Geografico(id_accidente) ON DELETE CASCADE ON UPDATE CASCADE);
+
+Create table Montañas(id_accidente INT PRIMARY KEY, altura INT, FOREIGN KEY(id_accidente) REFERENCES Accidente_Geografico(id_accidente) ON DELETE CASCADE ON UPDATE CASCADE);
+
+Create table Pais(id_pais int PRIMARY KEY, poblacion int, extension int);
+
+Create table Localidad(id_localidad int PRIMARY KEY, nombre char(35));
+
+Create table Hay(id_accidente INT, id_pais INT, Primary Key(id_pais,id_accidente), FOREIGN KEY(id_accidente) REFERENCES Accidente_Geografico(id_accidente) ON DELETE CASCADE ON UPDATE CASCADE,
+				FOREIGN KEY(id_pais) REFERENCES Pais(id_pais) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+Create table Pasa_por(id_localidad int, id_accidente int, Primary key(id_localidad,id_accidente),
+					FOREIGN KEY(id_accidente) REFERENCES Accidente_Geografico(id_accidente) ON DELETE CASCADE ON UPDATE CASCADE,
+                    FOREIGN KEY(id_localidad) REFERENCES Localidad(id_localidad) ON DELETE CASCADE ON UPDATE CASCADE);
+								
